@@ -1,0 +1,13 @@
+.tgcloud/
+node_modules/
+.context-compress/
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
+dist/
+.cloudflare/
+*.log
+.env
+.DS_Store

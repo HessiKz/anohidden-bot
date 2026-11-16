@@ -1,0 +1,24 @@
+{
+  "name": "anonymous-telegram-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Anonymous Telegram messaging platform on Telegram Serverless",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "devDependencies": {
+    "@tgcloud/cli": "^0.2.0"
+  },
+  "scripts": {
+    "test": "ALBUM_SETTLE_MS=50 node --test test/*.test.mjs",
+    "smoke": "node test/smoke.mjs",
+    "check": "find tgcloud -name '*.js' -print0 | xargs -0 -n1 node --check",
+    "deploy": "tgcloud push",
+    "migrate": "tgcloud migrate",
+    "status": "tgcloud status",
+    "run": "tgcloud run",
+    "setup:commands": "tgcloud run endpoints/setup '{\"action\":\"sync-commands\"}'",
+    "webhook": "tgcloud webhook"
+  }
+}
