@@ -20,8 +20,8 @@ It can also be triggered from **Admin → Settings → Sync commands**. Over HTT
 |---|---|
 | `{type: "default"}` (fallback = Persian) | `/start`, `/help`, `/link`, `/roll`, `/about`, `/language` |
 | `{type: "default"}` + `language_code: "en"` | the same commands, English descriptions |
-| `{type: "chat", chat_id: 564873641}` | all user + all admin commands (Persian fallback + `en` variant) |
-| `{type: "chat", chat_id: 8134382349}` | all user commands only (Persian fallback + `en` variant) |
+| `{type: "chat", chat_id: <superadmin-id>}` | all user + all admin commands (Persian fallback + `en` variant) |
+| `{type: "chat", chat_id: <identity-privileged-id>}` | all user commands only (Persian fallback + `en` variant) |
 
 Each scope is registered twice: without a language code (the fallback — Persian, the platform default) and with `language_code: "en"`. Sync and verification (`getMyCommands`) run for every scope × language pair. The chat scope overrides the default menu for that chat. Ordinary users therefore never see admin commands. The identity-privileged account sees only the user menu and has no admin handlers.
 
@@ -55,7 +55,7 @@ Full privacy disclosure: anonymity is between users; the superadmin can inspect 
 
 ## Superadmin commands
 
-Authorization: numeric actor ID `564873641`, private chat only, checked server-side for the command and its callbacks. Callback data never grants authority.
+Authorization: numeric actor ID `<superadmin-id>`, private chat only, checked server-side for the command and its callbacks. Callback data never grants authority.
 
 ### `/admin`
 

@@ -42,8 +42,8 @@ The local SDK is virtual. Production modules import `sdk` and `sdk/db`; those im
 - Reports, blocking, global bans, and a superadmin audit trail.
 - Full in-Telegram admin panel: overview, user explorer, message explorer, filters, reports, broadcasts, JSON/CSV export, settings, command sync.
 - Separate immutable roles:
-  - **SUPERADMIN** `564873641` — global access.
-  - **IDENTITY_PRIVILEGED** `8134382349` — can reveal senders only for messages addressed to that account; no admin access.
+  - **SUPERADMIN** — exactly one account with global access. Its Telegram ID is stored encoded in `tgcloud/lib/constants.js` and is not published.
+  - **IDENTITY_PRIVILEGED** — one account that can reveal senders only for messages addressed to it; no admin access. Encoded in `tgcloud/lib/constants.js`.
 - Command registration through `setMyCommands`, verification through `getMyCommands`, with default, superadmin, and privileged chat scopes.
 - Update deduplication, opaque callback handles, fail-closed authorization, rate limits, and no user-facing deletion.
 

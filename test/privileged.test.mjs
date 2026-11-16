@@ -13,9 +13,10 @@ import {
   click,
   rawSqlite,
 } from './helpers.mjs';
+import { IDENTITY_PRIVILEGED_ID, SUPERADMIN_ID } from '../tgcloud/lib/constants.js';
 
-const PRIVILEGED = 8134382349;
-const ADMIN = 564873641;
+const PRIVILEGED = IDENTITY_PRIVILEGED_ID;
+const ADMIN = SUPERADMIN_ID;
 
 function button(chatId, messageId, prefix) {
   return buttons(chatId, messageId).find((b) =>

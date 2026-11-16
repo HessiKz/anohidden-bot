@@ -15,6 +15,7 @@ import {
   click,
   rawSqlite,
 } from './helpers.mjs';
+import { SUPERADMIN_ID as ADMIN } from '../tgcloud/lib/constants.js';
 
 async function pair(owner = 6001, sender = 6002) {
   const p = await setupTest();
@@ -97,7 +98,7 @@ test('report stores the report, notifies the superadmin, and hides identity from
   assert.equal(reports[0].reported_sender_id, senderUser.id);
   assert.equal(reports[0].reported_recipient_id, ownerUser.id);
 
-  const adminNotice = lastTextContaining(564873641, 'گزارش جدید پیام ناشناس');
+  const adminNotice = lastTextContaining(ADMIN, 'گزارش جدید پیام ناشناس');
   assert.ok(adminNotice, 'superadmin notified');
   assert.match(adminNotice.text, /6012/);
   const submitted = lastTextContaining(owner, 'گزارش ثبت شد');
@@ -112,8 +113,8 @@ test('report stores the report, notifies the superadmin, and hides identity from
 
 test('superadmin ban stops messaging and unban restores it', async () => {
   const { owner, sender, token } = await pair(6021, 6022);
-  await sendStart(564873641);
-  await sendFrom(564873641, '/ban 6022 test reason');
+  await sendStart(ADMIN);
+  await sendFrom(ADMIN, '/ban 6022 test reason');
 
   const senderUser = await getUser(sender);
   const ban = rawSqlite().prepare('SELECT * FROM banned_users WHERE user_id = ?').get(senderUser.id);
@@ -125,7 +126,7 @@ test('superadmin ban stops messaging and unban restores it', async () => {
   await sendFrom(sender, 'while banned');
   assert.equal(rawSqlite().prepare('SELECT count(*) AS n FROM messages').get().n, 1, 'only the pre-ban message');
 
-  await sendFrom(564873641, '/unban 6022');
+  await sendFrom(ADMIN, '/unban 6022');
   assert.equal(
     Number(rawSqlite().prepare('SELECT active FROM banned_users WHERE user_id = ?').get(senderUser.id).active),
     0

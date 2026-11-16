@@ -5,11 +5,12 @@ import {
   calls,
   rawSqlite,
 } from './helpers.mjs';
+import { IDENTITY_PRIVILEGED_ID, SUPERADMIN_ID } from '../tgcloud/lib/constants.js';
 import { fa } from '../tgcloud/lib/i18n/fa.js';
 import { en } from '../tgcloud/lib/i18n/en.js';
 
-const ADMIN = 564873641;
-const PRIVILEGED = 8134382349;
+const ADMIN = SUPERADMIN_ID;
+const PRIVILEGED = IDENTITY_PRIVILEGED_ID;
 
 test('the canonical command registry is valid', async () => {
   const p = await setupTest();

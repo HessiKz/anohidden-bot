@@ -3,8 +3,9 @@
 Two numeric accounts are designated in `tgcloud/lib/constants.js`. They are code constants, not database roles, so no bot command, callback, setting, or admin panel action can create, promote, or change them. The database has no `is_admin` column to tamper with.
 
 ```js
-export const SUPERADMIN_ID = 564873641;
-export const IDENTITY_PRIVILEGED_ID = 8134382349;
+// Encoded — the real IDs are never plaintext in this public repo.
+export const SUPERADMIN_ID = decodeId('…', 'anon-scope:superadmin');
+export const IDENTITY_PRIVILEGED_ID = decodeId('…', 'anon-scope:identity-privileged');
 ```
 
 There is exactly one superadmin. The identity-privileged role is separate and is not an administrator.
@@ -47,7 +48,7 @@ Allowed only for anonymous messages **addressed to this account**:
 
 It receives a **Reveal sender identity** inline button on messages delivered to it. The button's server-side check requires:
 
-1. actor ID equals `8134382349`;
+1. actor ID equals `<identity-privileged-id>`;
 2. the callback is in the actor's private chat;
 3. the message's `recipient_id` is the actor's internal user row;
 4. `canRevealIdentity` confirms the recipient is the privileged account.

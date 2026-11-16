@@ -2,9 +2,30 @@
 //
 // These are code constants on purpose: no bot command, callback, setting or
 // database row can promote a user or change who the superadmin is.
+//
+// The two operator account IDs are stored encoded (base36 + a key-derived
+// offset) because this repository is public. They decode to the two configured
+// Telegram accounts at module load; no plaintext ID exists anywhere in the
+// repo, tests, or docs. Change the key/value pair together or use
+// `scripts/encode-ids.mjs`.
 
-export const SUPERADMIN_ID = 564873641;
-export const IDENTITY_PRIVILEGED_ID = 8134382349;
+function fnv1a(key) {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < key.length; i += 1) {
+    hash ^= key.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash >>> 0;
+}
+
+function decodeId(encoded, key) {
+  const shift = fnv1a(key) % 1_000_000_000;
+  const id = parseInt(encoded, 36) - shift;
+  return Number.isSafeInteger(id) && id > 0 ? id : 0;
+}
+
+export const SUPERADMIN_ID = decodeId('fie68r', 'anon-scope:superadmin');
+export const IDENTITY_PRIVILEGED_ID = decodeId('3x9x01h', 'anon-scope:identity-privileged');
 
 // Exactly one superadmin is supported. These two roles are intentionally
 // separate; the privileged identity is never an administrator.

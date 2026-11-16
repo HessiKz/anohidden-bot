@@ -22,8 +22,9 @@ import {
   queueFailure,
   rawSqlite,
 } from './helpers.mjs';
+import { IDENTITY_PRIVILEGED_ID, SUPERADMIN_ID } from '../tgcloud/lib/constants.js';
 
-const ADMIN = 564873641;
+const ADMIN = SUPERADMIN_ID;
 
 const MEDIA_TYPE_LIST =
   "'photo','video','voice','video_note','audio','document','sticker','animation'," +

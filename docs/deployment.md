@@ -16,7 +16,7 @@ Do not put either token in source, README, Git, command history, or logs. For CI
 - Node.js 22.5+ locally (tests use `node:sqlite`; the deployed runtime is the platform V8 isolate).
 - A Telegram bot created in BotFather and linked to Telegram Serverless.
 - CLI access token from BotFather.
-- The superadmin account (`564873641`) and identity-privileged account (`8134382349`) must have started the bot at least once for chat-scoped command menus to be accepted.
+- The superadmin account (`<superadmin-id>`) and identity-privileged account (`<identity-privileged-id>`) must have started the bot at least once for chat-scoped command menus to be accepted.
 
 ## Deploy sequence
 
@@ -66,7 +66,7 @@ You can also trigger this from **Admin → Settings → Sync commands** and read
 From Telegram:
 
 1. **Superadmin** sends `/start`. Expect onboarding, one link, and a Share button.
-2. **Superadmin** opens `/admin`. Expect the dashboard. If not, check that the numeric actor ID is `564873641` and the chat is private.
+2. **Superadmin** opens `/admin`. Expect the dashboard. If not, check that the numeric actor ID is `<superadmin-id>` and the chat is private.
 3. **Identity-privileged** sends `/start`. Expect ordinary onboarding only.
 4. **Identity-privileged** sends `/admin`. Expect “This command is not available.” and an `unauthorized_admin_command` audit row.
 5. **Ordinary test account** sends `/admin`. Same denial.
